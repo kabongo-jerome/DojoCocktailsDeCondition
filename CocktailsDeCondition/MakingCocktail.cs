@@ -4,109 +4,99 @@ namespace CocktailsDeCondition
 {
     public class MakingCocktail
     {
-        private enum IngredientType
-        {
-            Beer,
-            Vodka,
-            Tequila,
-            Fruit,
-            SodaWater,
-            Gin
-        }
-
         public string GetNameCocktail(List<string> ingredients)
         {
             var recipe = DetectIngredients(ingredients);
-            if (recipe[IngredientType.Beer])
+            if (recipe[Ingredient.Beer])
             {
                 return GetNameCocktailWithBeer(recipe);
             }
 
-            return recipe[IngredientType.Vodka] ? GetNameCocktailWithVodka(recipe) : Cocktails.Beer;
+            return recipe[Ingredient.Vodka] ? GetNameCocktailWithVodka(recipe) : Cocktails.Beer;
         }
 
-        private string GetNameCocktailWithVodka(Dictionary<IngredientType, bool> recipe)
+        private string GetNameCocktailWithVodka(Dictionary<string, bool> recipe)
         {
-            if (recipe[IngredientType.Tequila])
+            if (recipe[Ingredient.Tequila])
             {
                 return GetNameCocktailWithVodkaAndTequila(recipe);
             }
 
-            if (recipe[IngredientType.Fruit] && recipe[IngredientType.SodaWater])
+            if (recipe[Ingredient.Fruit] && recipe[Ingredient.SodaWater])
             {
                 return Cocktails.MarinesVodka;
             }
 
-            return recipe[IngredientType.Gin] ? Cocktails.VodkaCoffins : Cocktails.Vodka;
+            return recipe[Ingredient.Gin] ? Cocktails.VodkaCoffins : Cocktails.Vodka;
         }
 
-        private string GetNameCocktailWithVodkaAndTequila(Dictionary<IngredientType, bool> recipe)
+        private string GetNameCocktailWithVodkaAndTequila(Dictionary<string, bool> recipe)
         {
-            if (recipe[IngredientType.Gin])
+            if (recipe[Ingredient.Gin])
             {
-                return recipe[IngredientType.Fruit] ? Cocktails.LongIsland : Cocktails.TGV;
+                return recipe[Ingredient.Fruit] ? Cocktails.LongIsland : Cocktails.TGV;
             }
 
             return Cocktails.BlueShark;
         }
 
-        private string GetNameCocktailWithBeer(Dictionary<IngredientType, bool> recipe)
+        private string GetNameCocktailWithBeer(Dictionary<string, bool> recipe)
         {
-            if (recipe[IngredientType.SodaWater])
+            if (recipe[Ingredient.SodaWater])
             {
-                return recipe[IngredientType.Fruit] ? Cocktails.Monaco : Cocktails.Panache;
+                return recipe[Ingredient.Fruit] ? Cocktails.Monaco : Cocktails.Panache;
             }
 
-            if (recipe[IngredientType.Vodka])
+            if (recipe[Ingredient.Vodka])
             {
-                return recipe[IngredientType.Fruit] ? Cocktails.SkollFruitz : Cocktails.Skoll;
+                return recipe[Ingredient.Fruit] ? Cocktails.SkollFruitz : Cocktails.Skoll;
             }
 
-            return recipe[IngredientType.Tequila] ? Cocktails.Desperados : Cocktails.Beer;
+            return recipe[Ingredient.Tequila] ? Cocktails.Desperados : Cocktails.Beer;
         }
 
-        private static Dictionary<IngredientType, bool> DetectIngredients(List<string> ingredients)
+        private static Dictionary<string, bool> DetectIngredients(List<string> ingredients)
         {
-            var recipe = new Dictionary<IngredientType, bool>
+            var recipe = new Dictionary<string, bool>
             {
-                {IngredientType.Beer, false},
-                {IngredientType.Vodka, false},
-                {IngredientType.Tequila, false},
-                {IngredientType.Fruit, false},
-                {IngredientType.SodaWater, false},
-                {IngredientType.Gin, false}
+                {Ingredient.Beer, false},
+                {Ingredient.Vodka, false},
+                {Ingredient.Tequila, false},
+                {Ingredient.Fruit, false},
+                {Ingredient.SodaWater, false},
+                {Ingredient.Gin, false}
             };
 
             foreach (var ingredient in ingredients)
             {
                 if (ingredient == Ingredient.Beer)
                 {
-                    recipe[IngredientType.Beer] = true;
+                    recipe[Ingredient.Beer] = true;
                     continue;
                 }
                 if (ingredient == Ingredient.Vodka)
                 {
-                    recipe[IngredientType.Vodka] = true;
+                    recipe[Ingredient.Vodka] = true;
                     continue;
                 }
                 if (ingredient == Ingredient.Tequila)
                 {
-                    recipe[IngredientType.Tequila] = true;
+                    recipe[Ingredient.Tequila] = true;
                     continue;
                 }
                 if (ingredient == Ingredient.Fruit)
                 {
-                    recipe[IngredientType.Fruit] = true;
+                    recipe[Ingredient.Fruit] = true;
                     continue;
                 }
                 if (ingredient == Ingredient.SodaWater)
                 {
-                    recipe[IngredientType.SodaWater] = true;
+                    recipe[Ingredient.SodaWater] = true;
                     continue;
                 }
                 if (ingredient == Ingredient.Gin)
                 {
-                    recipe[IngredientType.Gin] = true;
+                    recipe[Ingredient.Gin] = true;
                 }
             }
             return recipe;
